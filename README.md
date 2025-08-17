@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # To-Do List Application
 
 A simple to-do list application with a React frontend and Flask backend.
@@ -64,3 +65,6 @@ todo-app/
 - **Frontend**: React, Axios for API requests
 - **Backend**: Flask, Flask-CORS for handling cross-origin requests
 - **Data Storage**: JSON file
+=======
+# kadur1
+>>>>>>> 35dd224754a09a2bfc65b0f3817c3c4f328d8197
