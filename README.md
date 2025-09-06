@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # To-Do List Application
 
 A simple to-do list application with a React frontend and Flask backend.
@@ -68,3 +69,58 @@ todo-app/
 =======
 # kadur1
 >>>>>>> 35dd224754a09a2bfc65b0f3817c3c4f328d8197
+=======
+# Jyotika M Kadur - Portfolio
+
+My personal portfolio website showcasing my projects and skills.
+
+## Features
+
+- Responsive design
+- Dark/Light theme toggle
+- Interactive project showcase
+- Skills visualization
+- Timeline of experience
+- Contact form
+- Downloadable CV
+- AI Chat assistant
+- Testimonials section
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- Font Awesome
+- Google Fonts
+- html2pdf.js
+
+## Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/YOUR_USERNAME/portfolio.git
+```
+
+2. Open `index.html` in your browser
+
+## Sections
+
+- Home
+- About Me
+- Skills
+- Timeline
+- Projects
+- Testimonials
+- Contact
+
+## Contact
+
+- Email: jyotikakadur@gmail.com
+- Location: Shimoga, Karnataka
+- Phone: 7204715618
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE). 
+>>>>>>> 8c15427 (first commit)
