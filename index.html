@@ -3,564 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Engineer Portfolio</title>
+    <title>MathMentor - AI Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" aria-label="Toggle dark mode">
-        <span class="theme-icon light-icon">☀️</span>
-        <span class="theme-icon dark-icon">🌙</span>
-    </button>
-    <!-- Vertical Navigation -->
-    <nav class="vertical-nav">
-        <div class="nav-header">
-            <div class="logo">Jyotika M Kadur</div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home" class="nav-item"><span class="nav-icon">🏠</span>Home</a></li>
-            <li><a href="#about" class="nav-item"><span class="nav-icon">👤</span>About Me</a></li>
-            <li><a href="#skills" class="nav-item"><span class="nav-icon">💻</span>Skills</a></li>
-            <li><a href="#timeline" class="nav-item"><span class="nav-icon">📅</span>Timeline</a></li>
-            <li><a href="#projects" class="nav-item"><span class="nav-icon">🚀</span>Projects</a></li>
-            <li><a href="#testimonials" class="nav-item"><span class="nav-icon">💬</span>Testimonials</a></li>
-            <li><a href="#chat" class="nav-item"><span class="nav-icon">💭</span>Chat</a></li>
-            <li><a href="#contact" class="nav-item"><span class="nav-icon">📧</span>Contact</a></li>
-        </ul>
-        <div class="nav-footer">
-            <div class="social-links">
-                <a href="#" target="_blank" aria-label="GitHub"><span class="nav-icon">📂</span></a>
-                <a href="#" target="_blank" aria-label="LinkedIn"><span class="nav-icon">💼</span></a>
-                <a href="#" target="_blank" aria-label="Twitter"><span class="nav-icon">🐦</span></a>
+    <div class="container">
+        <h1>MathMentor</h1>
+        <div class="calculator">
+            <div class="display">
+                <div class="input" id="input">0</div>
+                <div class="result" id="result"></div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>Hi, I'm <span class="highlight">jyotika m kadur</span></h1>
-                <p class="hero-subtitle">Software Engineer</p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn primary">View My Work</a>
-                    <a href="#contact" class="btn secondary">Contact Me</a>
-                    <button id="downloadBtn" class="btn download" aria-label="Download Portfolio">
-                        <span class="btn-icon">📥</span>
-                        Download CV
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="profile-container">
-                    <div class="profile-image">
-                        <img id="profileImage" src="/images/jyotika.jpg" alt="Jyotika M Kadur - Profile Photo">
-                        <div class="profile-upload">
-                            <label for="imageUpload" class="upload-btn">
-                                <span class="upload-icon">📸</span>
-                                Change Photo
-                            </label>
-                            <input 
-                                type="file" 
-                                id="imageUpload" 
-                                accept="image/*"
-                                style="display: none;"
-                                aria-label="Upload profile picture"
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <div class="bio">
-                        <p>Hello! I'm jyotika m kadur, a passionate Software Engineer with a keen eye for creating elegant solutions to complex problems. My journey in technology is driven by a love for clean code and user-centric design.</p>
-                    </div>
-                    <div class="career-highlights">
-                        <h3>Career Highlights</h3>
-                        <ul>
-                            <li>🎓 Bachelor's in Computer Science</li>
-                            <li>🏆 i am a student</li>
-                            <li>🤝 built a one mini project and a DBMS project</li>
-                            <li>🤝 built a Real Time monitoring Dashboard </li>
-                            <li>🤝 built a Personal Portfolio Website</li>
-                            <li>🤝 built a Chat Application</li>
-                            <li>🤝 built a to-do list application</li>
-
-                        </ul>
-                    </div>
-                    <div class="interests">
-                        <h3>Beyond Coding</h3>
-                        <ul>
-                            <li>⚽ Sports</li>
-                            <li>📚 Listening to music</li>
-                            <li>🎨 Hobby projects</li>
-                            <li>🌍 Vibe Coding</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <h2 class="section-title">Skills & Technologies</h2>
-            <div class="skills-grid">
-                <!-- Programming Languages -->
-                <div class="skill-category">
-                    <h3><span class="category-icon">👩‍💻</span>Languages</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">C</span>
-                                <span class="skill-level">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">Python</span>
-                                <span class="skill-level">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">Java</span>
-                                <span class="skill-level">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Frontend Technologies -->
-                <div class="skill-category">
-                    <h3><span class="category-icon">🎨</span>Frontend</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">HTML/CSS</span>
-                                <span class="skill-level">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">React</span>
-                                <span class="skill-level">50%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 50%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tools & Others -->
-                <div class="skill-category">
-                    <h3><span class="category-icon">🛠️</span>Tools & Others</h3>
-                    <div class="tool-grid">
-                        <div class="tool-item">Git</div>
-                        <div class="tool-item">VS Code</div>
-                        <div class="tool-item">MySQL</div>
-                        <div class="tool-item">PostgreSQL</div>
-                        <div class="tool-item">Node.js</div>
-                        <div class="tool-item">Cursor</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline Section -->
-        <section id="timeline" class="timeline">
-            <h2 class="section-title">My Journey</h2>
-            <div class="timeline-container">
-                <!-- Education -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025 - Present</div>
-                        <h3>Bachelor's in Computer Science</h3>
-                        <p>Pursuing my degree with focus on software development and web technologies.</p>
-                        <div class="timeline-icon">🎓</div>
-                    </div>
-                </div>
-                div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025</div>
-                        <h3>Internship Project</h3>
-                        <p>Developed an real time monitoring Dashboard using PostgreSQL,FastAPI, and React.</p>
-                        <div class="timeline-icon">💼</div>
-                    </div>
-                </div>
-
-                <!-- Project Milestone -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2024</div>
-                        <h3>DBMS Project</h3>
-                        <p>Developed a comprehensive database management system, implementing core database concepts.</p>
-                        <div class="timeline-icon">💼</div>
-                    </div>
-                </div>
+            <div class="buttons">
+                <!-- First row -->
+                <button class="btn clear" data-value="clear">C</button>
+                <button class="btn backspace" data-value="backspace">⌫</button>
+                <button class="btn operator" data-value="%">%</button>
+                <button class="btn operator" data-value="/">÷</button>
                 
-
-                <!-- Mini Project -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023</div>
-                        <h3>First Mini Project</h3>
-                        <p>Created my first web application, learning fundamental programming concepts.</p>
-                        <div class="timeline-icon">🚀</div>
-                    </div>
-                </div>
-
-                <!-- Beginning -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2022</div>
-                        <h3>Started Coding Journey</h3>
-                        <p>Began learning programming with basic web development technologies.</p>
-                        <div class="timeline-icon">💻</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <!-- DBMS Project -->
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <span class="project-icon">🗄️</span>
-                    </div>
-                    <div class="project-content">
-                        <h3>Database Management System</h3>
-                        <p>A comprehensive DBMS project implementing core database concepts and SQL operations.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">PHP</span>
-                            <span class="tech-tag">HTML/CSS</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" target="_blank">
-                                <span class="link-icon">🔗</span>Live Demo
-                            </a>
-                            <a href="#" class="project-link" target="_blank">
-                                <span class="link-icon">📂</span>GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mini Web Project -->
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <span class="project-icon">🌐</span>
-                    </div>
-                    <div class="project-content">
-                        <h3>Web Development Project</h3>
-                        <p>A web application showcasing fundamental programming and design concepts.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <!-- Portfolio Website -->
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <span class="project-icon">👩‍💻</span>
-                    </div>
-                    <div class="project-content">
-                        <h3>Portfolio Website</h3>
-                        <p>A personal portfolio website built with modern web technologies and pixel art aesthetics.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" target="_blank">
-                                <span class="link-icon">📂</span>GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="testimonials">
-            <h2 class="section-title">What People Say</h2>
-            <div class="testimonials-grid">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-icon">💬</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"Jyotika demonstrated exceptional problem-solving skills during our DBMS project. Her attention to detail and ability to write clean, efficient code made her a valuable team member."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h3>Prof. Rajesh Kumar</h3>
-                                <span class="author-title">Project Guide, CSE Department</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-icon">💭</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"Working with Jyotika on the web development project was a great experience. She brings creativity and technical expertise to every challenge."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h3>Inchara B M</h3>
-                                <span class="author-title">Project Team Lead</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-icon">⭐</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">"Her dedication to learning new technologies and willingness to help others makes her an excellent collaborator. Looking forward to working on more projects together."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h3>Somanagouda Kadur</h3>
-                                <span class="author-title">CEO of ARK Mech Tech Pvt Ltd.PUNE</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-container">
-                <div class="contact-card">
-                    <div class="contact-header">
-                        <span class="contact-icon">📨</span>
-                        <h3>Send Me a Message</h3>
-                    </div>
-                    
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                required 
-                                placeholder="Your name"
-                                class="pixel-input"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                required 
-                                placeholder="your.email@example.com"
-                                class="pixel-input"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input 
-                                type="text" 
-                                id="subject" 
-                                name="subject" 
-                                required 
-                                placeholder="Message subject"
-                                class="pixel-input"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                required 
-                                placeholder="Your message here..."
-                                class="pixel-input"
-                                rows="5"
-                            ></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-icon">📤</span>
-                            Send Message
-                        </button>
-                    </form>
-
-                    <!-- Success Message (hidden by default) -->
-                    <div id="successMessage" class="success-message" style="display: none;">
-                        <span class="success-icon">✨</span>
-                        <p>Thank you for your message! I'll get back to you soon.</p>
-                    </div>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="info-item">
-                        <span class="info-icon">📧</span>
-                        <p>jyotikakadur@gmail.com</p>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">📱</span>
-                        <p>7204715618</p>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">📍</span>
-                        <p>shimoga,karnataka</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Video Section -->
-        <section id="video" class="video-section">
-            <h2 class="section-title">Watch My Introduction</h2>
-            <div class="video-container">
-                <!-- Video Wrapper with Pixel Border -->
-                <div class="video-wrapper">
-                    <!-- Replace VIDEO_ID with your actual YouTube video ID -->
-                    <iframe 
-                        src="https://www.youtube.com/embed/VIDEO_ID" 
-                        title="Portfolio Introduction"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="video-caption">
-                    <p>🎥 A brief introduction to my journey in software development and showcase of my key projects.</p>
-                    <div class="video-tags">
-                        <span class="tag">Portfolio Overview</span>
-                        <span class="tag">Project Demos</span>
-                        <span class="tag">Coding Journey</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Chat Section -->
-        <section id="chat" class="chat-section">
-            <h2 class="section-title">Chat with AI Assistant</h2>
-            <div class="chat-container">
-                <div class="chat-window">
-                    <div class="chat-header">
-                        <span class="chat-status">🟢 Online</span>
-                        <span class="chat-title">AI Assistant</span>
-                        <button class="minimize-btn" aria-label="Minimize chat">_</button>
-                    </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <!-- Welcome Message -->
-                        <div class="message bot">
-                            <div class="message-avatar">🤖</div>
-                            <div class="message-content">
-                                <p>Hi! I'm Jyotika's AI assistant. Feel free to ask me about her projects, skills, or experience!</p>
-                            </div>
-                            <div class="message-time">Just now</div>
-                        </div>
-                    </div>
-                    <div class="chat-input">
-                        <form id="chatForm" class="chat-form">
-                            <input 
-                                type="text" 
-                                id="messageInput" 
-                                placeholder="Type your message..." 
-                                aria-label="Type your message"
-                                required
-                            >
-                            <button type="submit" class="send-btn">
-                                <span class="btn-icon">📤</span>
-                                Send
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <!-- Social Links -->
-                <div class="footer-section">
-                    <h3 class="footer-title">Connect With Me</h3>
-                    <div class="social-icons">
-                        <a href="https://github.com/1Jyoti2" target="_blank" class="social-icon" aria-label="Visit my GitHub profile">
-                            <div class="pixel-icon github-icon"></div>
-                            <span class="icon-label">GitHub</span>
-                        </a>
-                        <a href="https://linkedin.com/in/jyotika-kadur" target="_blank" class="social-icon" aria-label="Connect with me on LinkedIn">
-                            <div class="pixel-icon linkedin-icon"></div>
-                            <span class="icon-label">LinkedIn</span>
-                        </a>
-
-                        <a href="mailto:jyotikakadur@gmail.com" class="social-icon" aria-label="Send me an email">
-                            <div class="pixel-icon email-icon"></div>
-                            <span class="icon-label">Email</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="footer-section">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <nav class="footer-nav">
-                        <a href="#about">About</a>
-                        <a href="#projects">Projects</a>
-                        <a href="#skills">Skills</a>
-                        <a href="#contact">Contact</a>
-                    </nav>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="copyright">&copy; 2024 Jyotika M Kadur. Built with <span class="heart-icon">❤️</span> and pixels.</p>
+                <!-- Second row -->
+                <button class="btn number" data-value="7">7</button>
+                <button class="btn number" data-value="8">8</button>
+                <button class="btn number" data-value="9">9</button>
+                <button class="btn operator" data-value="*">×</button>
+                
+                <!-- Third row -->
+                <button class="btn number" data-value="4">4</button>
+                <button class="btn number" data-value="5">5</button>
+                <button class="btn number" data-value="6">6</button>
+                <button class="btn operator" data-value="-">−</button>
+                
+                <!-- Fourth row -->
+                <button class="btn number" data-value="1">1</button>
+                <button class="btn number" data-value="2">2</button>
+                <button class="btn number" data-value="3">3</button>
+                <button class="btn operator" data-value="+">+</button>
+                
+                <!-- Fifth row -->
+                <button class="btn number" data-value="0">0</button>
+                <button class="btn number" data-value=".">.</button>
+                <button class="btn equals" data-value="=">=</button>
+                <button class="btn explain" data-value="explain">Explain</button>
+                
+                <!-- Trigonometric functions -->
+                <button class="btn function" data-value="sin">sin</button>
+                <button class="btn function" data-value="cos">cos</button>
+                <button class="btn function" data-value="tan">tan</button>
+                <button class="btn function" data-value="sqrt">√</button>
+                
+                <!-- Additional functions -->
+                <button class="btn function" data-value="log">log</button>
+                <button class="btn function" data-value="ln">ln</button>
+                <button class="btn function" data-value="pi">π</button>
+                <button class="btn function" data-value="e">e</button>
             </div>
         </div>
-    </footer>
-
+        <div class="explanation-panel" id="explanation-panel">
+            <h2>Step-by-Step Explanation</h2>
+            <div class="explanation-content" id="explanation-content">
+                <p>Click the "Explain" button after performing a calculation to see a detailed explanation.</p>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
