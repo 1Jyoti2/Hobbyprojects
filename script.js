@@ -1,661 +1,377 @@
-// Chat functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const chatForm = document.getElementById('chatForm');
-    const messageInput = document.getElementById('messageInput');
-    const chatMessages = document.getElementById('chatMessages');
+// Calculator state
+let currentInput = '0';
+let previousInput = '';
+let operation = null;
+let shouldResetInput = false;
+let calculationHistory = [];
 
-    // Sample responses for demo purposes
-    const sampleResponses = [
-        "I'd be happy to tell you more about Jyotika's projects!",
-        "Jyotika has experience with HTML, CSS, JavaScript, and more.",
-        "You can check out Jyotika's latest work in the Projects section.",
-        "Feel free to reach out through the contact form for collaboration!"
-    ];
+// DOM Elements
+const inputDisplay = document.getElementById('input');
+const resultDisplay = document.getElementById('result');
+const explanationContent = document.getElementById('explanation-content');
+const buttons = document.querySelectorAll('.btn');
 
-    // Function to add a new message to the chat
-    function addMessage(content, isUser = false) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-        
-        messageDiv.innerHTML = `
-            <div class="message-avatar">${isUser ? '👤' : '🤖'}</div>
-            <div class="message-content">
-                <p>${content}</p>
-            </div>
-            <div class="message-time">Just now</div>
-        `;
-
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Function to get AI response
-    async function getAIResponse(message) {
-        // TODO: Integrate with actual AI API (e.g., OpenAI)
-        // Example API integration:
-        /*
-        try {
-            const response = await fetch('YOUR_AI_API_ENDPOINT', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_API_KEY'
-                },
-                body: JSON.stringify({ message })
-            });
-            const data = await response.json();
-            return data.response;
-        } catch (error) {
-            console.error('Error:', error);
-            return 'Sorry, I encountered an error. Please try again later.';
-        }
-        */
-
-        // For demo, return random response
-        return sampleResponses[Math.floor(Math.random() * sampleResponses.length)];
-    }
-
-    // Handle form submission
-    chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const message = messageInput.value.trim();
-        
-        if (message) {
-            // Add user message
-            addMessage(message, true);
-            messageInput.value = '';
-
-            // Simulate AI thinking with delay
-            setTimeout(async () => {
-                const response = await getAIResponse(message);
-                addMessage(response);
-            }, 1000);
-        }
-    });
-
-    // Handle minimize button
-    const minimizeBtn = document.querySelector('.minimize-btn');
-    minimizeBtn.addEventListener('click', () => {
-        const chatWindow = document.querySelector('.chat-window');
-        chatWindow.classList.toggle('minimized');
-    });
-});
-
-// Contact Form Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('successMessage');
-
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-
-        try {
-            // TODO: Integrate with email service (e.g., Resend API)
-            /* Example integration:
-            const response = await fetch('YOUR_API_ENDPOINT', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_API_KEY'
-                },
-                body: JSON.stringify({
-                    from: 'your-website@example.com',
-                    to: 'your-email@example.com',
-                    subject: data.subject,
-                    html: `
-                        <h2>New Contact Form Submission</h2>
-                        <p><strong>Name:</strong> ${data.name}</p>
-                        <p><strong>Email:</strong> ${data.email}</p>
-                        <p><strong>Message:</strong> ${data.message}</p>
-                    `
-                })
-            });
-
-            if (!response.ok) throw new Error('Failed to send message');
-            */
-
-            // For demo purposes, simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Show success message
-            contactForm.reset();
-            successMessage.style.display = 'flex';
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
-
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to send message. Please try again later.');
-        }
-    });
-});
-
-// Add mobile navigation toggle functionality
-document.addEventListener('DOMContentLoaded', () => {
-    // Create and append nav toggle button if it doesn't exist
-    if (!document.querySelector('.nav-toggle')) {
-        const navToggle = document.createElement('button');
-        navToggle.className = 'nav-toggle';
-        navToggle.setAttribute('aria-label', 'Toggle navigation');
-        navToggle.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24">
-                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
-            </svg>
-        `;
-        document.body.appendChild(navToggle);
-    }
-
-    const nav = document.querySelector('.vertical-nav');
-    const navToggle = document.querySelector('.nav-toggle');
-    const mainContent = document.querySelector('.main-content');
-
-    // Toggle navigation
-    navToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    });
-
-    // Close navigation when clicking outside
-    mainContent.addEventListener('click', () => {
-        if (nav.classList.contains('active')) {
-            nav.classList.remove('active');
-            navToggle.classList.remove('active');
-        }
-    });
-
-    // Handle window resize
-    let timeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            if (window.innerWidth > 768) {
-                nav.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-        }, 250);
-    });
-});
-
-// Add smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            // Close mobile nav after clicking
-            const nav = document.querySelector('.vertical-nav');
-            const navToggle = document.querySelector('.nav-toggle');
-            if (window.innerWidth <= 768) {
-                nav.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-        }
-    });
-});
-
-// Browser Compatibility Check
-document.addEventListener('DOMContentLoaded', () => {
-    const checkBrowserCompatibility = () => {
-        const features = {
-            grid: typeof document.createElement('div').style.grid === 'string',
-            flexbox: typeof document.createElement('div').style.flexbox === 'string',
-            customProperties: CSS.supports('(--foo: red)'),
-            intersectionObserver: 'IntersectionObserver' in window,
-        };
-
-        const incompatibleFeatures = Object.entries(features)
-            .filter(([, supported]) => !supported)
-            .map(([feature]) => feature);
-
-        if (incompatibleFeatures.length > 0) {
-            console.warn('Browser compatibility issues detected:', incompatibleFeatures);
-        }
-    };
-
-    checkBrowserCompatibility();
-});
-
-// Error tracking and monitoring
-window.addEventListener('error', (event) => {
-    console.error('Global error:', {
-        message: event.message,
-        source: event.filename,
-        lineNo: event.lineno,
-        colNo: event.colno,
-        error: event.error
+// Initialize calculator
+function init() {
+    buttons.forEach(button => {
+        button.addEventListener('click', () => handleButtonClick(button.dataset.value));
     });
     
-    // You can send this to your error tracking service
-    // sendToErrorTracking(event);
-});
-
-// Performance monitoring
-const performanceMonitor = {
-    init() {
-        if ('performance' in window) {
-            // Navigation timing
-            window.addEventListener('load', () => {
-                const timing = performance.getEntriesByType('navigation')[0];
-                console.log('Page Load Metrics:', {
-                    'DNS Lookup': timing.domainLookupEnd - timing.domainLookupStart,
-                    'Server Connection': timing.connectEnd - timing.connectStart,
-                    'Server Response': timing.responseEnd - timing.responseStart,
-                    'Page Load': timing.loadEventEnd - timing.navigationStart
-                });
-            });
-
-            // Resource timing
-            const observer = new PerformanceObserver((list) => {
-                list.getEntries().forEach((entry) => {
-                    if (entry.initiatorType === 'img' || entry.initiatorType === 'video') {
-                        console.log(`Resource Load Time (${entry.name}):`, entry.duration);
-                    }
-                });
-            });
-
-            observer.observe({ entryTypes: ['resource'] });
-        }
-    }
-};
-
-performanceMonitor.init();
-
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('ServiceWorker registration successful');
-            })
-            .catch(err => {
-                console.log('ServiceWorker registration failed:', err);
-            });
-    });
+    // Add keyboard support
+    document.addEventListener('keydown', handleKeyDown);
 }
 
-// Download Portfolio Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const downloadBtn = document.getElementById('downloadBtn');
+// Handle button clicks
+function handleButtonClick(value) {
+    if (value === 'clear') {
+        clearCalculator();
+    } else if (value === 'backspace') {
+        handleBackspace();
+    } else if (value === '=') {
+        calculateResult();
+    } else if (value === 'explain') {
+        explainCalculation();
+    } else if (['sin', 'cos', 'tan', 'sqrt', 'log', 'ln'].includes(value)) {
+        handleFunction(value);
+    } else if (value === 'pi') {
+        updateInput(Math.PI.toString());
+    } else if (value === 'e') {
+        updateInput(Math.E.toString());
+    } else if (['+', '-', '*', '/', '%'].includes(value)) {
+        handleOperator(value);
+    } else {
+        // Handle numbers and decimal point
+        handleNumber(value);
+    }
     
-    downloadBtn.addEventListener('click', async () => {
-        try {
-            // Show loading state
-            downloadBtn.innerHTML = '<span class="btn-icon">⏳</span> Preparing...';
-            downloadBtn.disabled = true;
-
-            // Create PDF content with styling
-            const element = document.createElement('div');
-            element.innerHTML = `
-                <style>
-                    .pdf-container {
-                        font-family: Arial, sans-serif;
-                        max-width: 800px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        color: #333;
-                    }
-                    .pdf-header {
-                        text-align: center;
-                        padding-bottom: 20px;
-                        border-bottom: 2px solid #4a90e2;
-                    }
-                    .pdf-header h1 {
-                        color: #4a90e2;
-                        font-size: 24px;
-                        margin-bottom: 10px;
-                    }
-                    .section {
-                        margin: 20px 0;
-                        padding: 15px;
-                        background: #f8f9fa;
-                        border-radius: 5px;
-                    }
-                    .section h2 {
-                        color: #2ecc71;
-                        font-size: 20px;
-                        margin-bottom: 15px;
-                        border-bottom: 1px solid #ddd;
-                        padding-bottom: 5px;
-                    }
-                    .contact-info {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 10px;
-                    }
-                    .contact-item {
-                        background: #fff;
-                        padding: 8px 15px;
-                        border-radius: 3px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                    }
-                    .skill-bar {
-                        background: #eee;
-                        height: 20px;
-                        border-radius: 10px;
-                        margin: 5px 0;
-                    }
-                    .skill-progress {
-                        background: #4a90e2;
-                        height: 100%;
-                        border-radius: 10px;
-                    }
-                    .project-card {
-                        background: #fff;
-                        padding: 15px;
-                        margin: 10px 0;
-                        border-radius: 5px;
-                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                    }
-                    .tech-tags {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 5px;
-                        margin-top: 10px;
-                    }
-                    .tech-tag {
-                        background: #e9ecef;
-                        padding: 3px 8px;
-                        border-radius: 3px;
-                        font-size: 12px;
-                    }
-                </style>
-                <div class="pdf-container">
-                    <div class="pdf-header">
-                        <h1>Jyotika M Kadur</h1>
-                        <p>Software Engineer</p>
-                    </div>
-
-                    <div class="section">
-                        <h2>Contact Information</h2>
-                        <div class="contact-info">
-                            <div class="contact-item">📧 jyotika@example.com</div>
-                            <div class="contact-item">📱 +1 (234) 567-8900</div>
-                            <div class="contact-item">📍 Bangalore, India</div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2>Education</h2>
-                        <div class="project-card">
-                            <h3>Bachelor's in Computer Science</h3>
-                            <p>2023 - Present</p>
-                            <p>Pursuing degree with focus on software development and web technologies</p>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2>Skills</h2>
-                        <div class="skills-container">
-                            <div class="skill-item">
-                                <p>JavaScript</p>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <p>Python</p>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 75%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <p>Java</p>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 70%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <p>HTML5/CSS3</p>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <p>React</p>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 70%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2>Projects</h2>
-                        <div class="project-card">
-                            <h3>Database Management System</h3>
-                            <p>A comprehensive DBMS project implementing core database concepts and SQL operations.</p>
-                            <div class="tech-tags">
-                                <span class="tech-tag">MySQL</span>
-                                <span class="tech-tag">PHP</span>
-                                <span class="tech-tag">HTML/CSS</span>
-                            </div>
-                        </div>
-                        <div class="project-card">
-                            <h3>Web Development Project</h3>
-                            <p>A web application showcasing fundamental programming and design concepts.</p>
-                            <div class="tech-tags">
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">CSS3</span>
-                            </div>
-                        </div>
-                        <div class="project-card">
-                            <h3>Portfolio Website</h3>
-                            <p>A personal portfolio website built with modern web technologies.</p>
-                            <div class="tech-tags">
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">CSS3</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // PDF generation options
-            const opt = {
-                margin: [0.5, 0.5],
-                filename: 'jyotika-portfolio.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2,
-                    useCORS: true,
-                    logging: false
-                },
-                jsPDF: { 
-                    unit: 'in', 
-                    format: 'a4', 
-                    orientation: 'portrait'
-                },
-                pagebreak: { mode: 'avoid-all' }
-            };
-
-            // Generate PDF
-            await html2pdf().set(opt).from(element).save();
-
-            // Reset button state
-            downloadBtn.innerHTML = '<span class="btn-icon">📥</span> Download CV';
-            downloadBtn.disabled = false;
-
-        } catch (error) {
-            console.error('Download failed:', error);
-            downloadBtn.innerHTML = '<span class="btn-icon">❌</span> Failed';
-            setTimeout(() => {
-                downloadBtn.innerHTML = '<span class="btn-icon">📥</span> Download CV';
-                downloadBtn.disabled = false;
-            }, 2000);
-        }
-    });
-});
-
-// Function to load html2pdf library
-function loadHTML2PDF() {
-    return new Promise((resolve, reject) => {
-        if (window.html2pdf) {
-            resolve();
-            return;
-        }
-
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-    });
+    updateDisplay();
 }
 
-// Profile Image Upload Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const imageUpload = document.getElementById('imageUpload');
-    const profileImage = document.getElementById('profileImage');
+// Handle keyboard input
+function handleKeyDown(event) {
+    const key = event.key;
+    
+    if (key >= '0' && key <= '9') {
+        handleButtonClick(key);
+    } else if (key === '.') {
+        handleButtonClick('.');
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        handleButtonClick(key);
+    } else if (key === 'Enter') {
+        handleButtonClick('=');
+    } else if (key === 'Escape') {
+        handleButtonClick('clear');
+    } else if (key === 'Backspace') {
+        handleButtonClick('backspace');
+    }
+}
 
-    imageUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        
-        if (file) {
-            // Check file type
-            if (!file.type.startsWith('image/')) {
-                alert('Please upload an image file');
+// Clear calculator
+function clearCalculator() {
+    currentInput = '0';
+    previousInput = '';
+    operation = null;
+    resultDisplay.textContent = '';
+}
+
+// Handle backspace
+function handleBackspace() {
+    if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+    } else {
+        currentInput = '0';
+    }
+}
+
+// Handle number input
+function handleNumber(value) {
+    if (shouldResetInput) {
+        currentInput = value;
+        shouldResetInput = false;
+    } else if (currentInput === '0' && value !== '.') {
+        currentInput = value;
+    } else {
+        // Prevent multiple decimal points
+        if (value === '.' && currentInput.includes('.')) return;
+        currentInput += value;
+    }
+}
+
+// Handle operator
+function handleOperator(value) {
+    if (operation !== null) {
+        calculateResult();
+    }
+    
+    previousInput = currentInput;
+    operation = value;
+    shouldResetInput = true;
+}
+
+// Handle mathematical functions
+function handleFunction(func) {
+    const num = parseFloat(currentInput);
+    let result;
+    
+    switch (func) {
+        case 'sin':
+            result = Math.sin(num * (Math.PI / 180)); // Convert to radians
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `sin(${num}°) = ${result.toFixed(6)}`;
+            break;
+        case 'cos':
+            result = Math.cos(num * (Math.PI / 180)); // Convert to radians
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `cos(${num}°) = ${result.toFixed(6)}`;
+            break;
+        case 'tan':
+            result = Math.tan(num * (Math.PI / 180)); // Convert to radians
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `tan(${num}°) = ${result.toFixed(6)}`;
+            break;
+        case 'sqrt':
+            if (num < 0) {
+                resultDisplay.textContent = 'Error: Cannot calculate square root of negative number';
                 return;
             }
-
-            // Check file size (limit to 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Please upload an image smaller than 5MB');
+            result = Math.sqrt(num);
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `√${num} = ${result.toFixed(6)}`;
+            break;
+        case 'log':
+            if (num <= 0) {
+                resultDisplay.textContent = 'Error: Cannot calculate log of non-positive number';
                 return;
             }
-
-            const reader = new FileReader();
-            
-            reader.onload = (event) => {
-                // Update the profile image
-                profileImage.src = event.target.result;
-                
-                // Optional: Save to localStorage for persistence
-                localStorage.setItem('profileImage', event.target.result);
-                
-                // Show success message
-                const successToast = document.createElement('div');
-                successToast.className = 'upload-toast';
-                successToast.innerHTML = `
-                    <span class="toast-icon">✅</span>
-                    Profile picture updated successfully!
-                `;
-                document.body.appendChild(successToast);
-                
-                // Remove toast after 3 seconds
-                setTimeout(() => {
-                    successToast.remove();
-                }, 3000);
-            };
-
-            reader.onerror = () => {
-                alert('Error reading file');
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Load saved image from localStorage if exists
-    const savedImage = localStorage.getItem('profileImage');
-    if (savedImage) {
-        profileImage.src = savedImage;
+            result = Math.log10(num);
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `log₁₀(${num}) = ${result.toFixed(6)}`;
+            break;
+        case 'ln':
+            if (num <= 0) {
+                resultDisplay.textContent = 'Error: Cannot calculate ln of non-positive number';
+                return;
+            }
+            result = Math.log(num);
+            calculationHistory.push({ type: 'function', function: func, input: num, result: result });
+            resultDisplay.textContent = `ln(${num}) = ${result.toFixed(6)}`;
+            break;
     }
-});
-
-// Add these styles for the success toast
-const style = document.createElement('style');
-style.textContent = `
-    .upload-toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: var(--secondary-color);
-        color: var(--bg-color);
-        padding: 1rem;
-        border-radius: var(--border-radius-md);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        box-shadow: var(--shadow-md);
-        animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
-        z-index: 1000;
-    }
-
-    .toast-icon {
-        font-size: 1.2rem;
-    }
-
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
-
-// Theme Toggle Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     
-    // Check for saved theme preference or use system preference
-    const currentTheme = localStorage.getItem('theme') || 
-                        (prefersDarkScheme.matches ? 'dark' : 'light');
+    currentInput = result.toString();
+    shouldResetInput = true;
+}
+
+// Calculate result
+function calculateResult() {
+    if (operation === null || shouldResetInput) return;
     
-    // Apply the current theme
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
+    const prev = parseFloat(previousInput);
+    const current = parseFloat(currentInput);
+    let result;
     
-    // Theme toggle click handler
-    themeToggle.addEventListener('click', () => {
-        const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' 
-                        ? 'light' 
-                        : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-        
-        // Add animation effect
-        document.documentElement.style.transition = 'all 0.3s ease';
+    switch (operation) {
+        case '+':
+            result = prev + current;
+            break;
+        case '-':
+            result = prev - current;
+            break;
+        case '*':
+            result = prev * current;
+            break;
+        case '/':
+            if (current === 0) {
+                resultDisplay.textContent = 'Error: Division by zero';
+                return;
+            }
+            result = prev / current;
+            break;
+        case '%':
+            result = prev % current;
+            break;
+    }
+    
+    // Store calculation for explanation
+    calculationHistory.push({
+        type: 'operation',
+        firstOperand: prev,
+        secondOperand: current,
+        operator: operation,
+        result: result
     });
     
-    // Update theme icon based on current theme
-    function updateThemeIcon(theme) {
-        const lightIcon = themeToggle.querySelector('.light-icon');
-        const darkIcon = themeToggle.querySelector('.dark-icon');
-        
-        if (theme === 'dark') {
-            lightIcon.style.display = 'none';
-            darkIcon.style.display = 'inline';
-        } else {
-            lightIcon.style.display = 'inline';
-            darkIcon.style.display = 'none';
-        }
+    // Display the calculation result with the operation
+    resultDisplay.textContent = `${prev} ${getOperatorSymbol(operation)} ${current} = ${result}`;
+    
+    currentInput = result.toString();
+    operation = null;
+    previousInput = '';
+    shouldResetInput = true;
+}
+
+// Update display
+function updateDisplay() {
+    inputDisplay.textContent = currentInput;
+    
+    // Only update result display if it's not already showing a function result
+    // This preserves the trigonometric function results on the display
+    if (operation !== null && !resultDisplay.textContent.includes('=')) {
+        resultDisplay.textContent = `${previousInput} ${getOperatorSymbol(operation)}`;
+    } else if (resultDisplay.textContent === '' && operation === null) {
+        // Keep display empty only if there's no operation and no existing content
+        resultDisplay.textContent = '';
+    }
+    // Otherwise, keep the existing content (function results)
+}
+
+// Get operator symbol for display
+function getOperatorSymbol(op) {
+    switch (op) {
+        case '+':
+            return '+';
+        case '-':
+            return '−';
+        case '*':
+            return '×';
+        case '/':
+            return '÷';
+        case '%':
+            return '%';
+        default:
+            return op;
+    }
+}
+
+// AI Explanation functionality
+function explainCalculation() {
+    if (calculationHistory.length === 0) {
+        explanationContent.innerHTML = '<p>No calculations to explain yet. Perform a calculation first.</p>';
+        return;
     }
     
-    // Listen for system theme changes
-    prefersDarkScheme.addEventListener('change', (e) => {
-        const newTheme = e.matches ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-    });
-}); 
+    const lastCalculation = calculationHistory[calculationHistory.length - 1];
+    let explanation = '';
+    
+    if (lastCalculation.type === 'function') {
+        explanation = explainFunction(lastCalculation);
+    } else if (lastCalculation.type === 'operation') {
+        explanation = explainOperation(lastCalculation);
+    }
+    
+    explanationContent.innerHTML = explanation;
+}
+
+// Explain mathematical functions
+function explainFunction(calculation) {
+    const { function: func, input, result } = calculation;
+    let explanation = '';
+    
+    switch (func) {
+        case 'sin':
+            explanation = `<h3>Sine Function Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the angle in degrees: ${input}°</p>
+                <p><strong>Step 2:</strong> Convert the angle to radians using the formula: radians = degrees × (π/180)</p>
+                <p>radians = ${input} × (π/180) = ${(input * (Math.PI / 180)).toFixed(6)} radians</p>
+                <p><strong>Step 3:</strong> Calculate the sine of the angle in radians</p>
+                <p>sin(${(input * (Math.PI / 180)).toFixed(6)}) = ${result.toFixed(6)}</p>
+                <p><strong>Result:</strong> sin(${input}°) = ${result.toFixed(6)}</p>
+                <p><strong>Explanation:</strong> The sine function gives the ratio of the opposite side to the hypotenuse in a right triangle with the given angle.</p>`;
+            break;
+        case 'cos':
+            explanation = `<h3>Cosine Function Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the angle in degrees: ${input}°</p>
+                <p><strong>Step 2:</strong> Convert the angle to radians using the formula: radians = degrees × (π/180)</p>
+                <p>radians = ${input} × (π/180) = ${(input * (Math.PI / 180)).toFixed(6)} radians</p>
+                <p><strong>Step 3:</strong> Calculate the cosine of the angle in radians</p>
+                <p>cos(${(input * (Math.PI / 180)).toFixed(6)}) = ${result.toFixed(6)}</p>
+                <p><strong>Result:</strong> cos(${input}°) = ${result.toFixed(6)}</p>
+                <p><strong>Explanation:</strong> The cosine function gives the ratio of the adjacent side to the hypotenuse in a right triangle with the given angle.</p>`;
+            break;
+        case 'tan':
+            explanation = `<h3>Tangent Function Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the angle in degrees: ${input}°</p>
+                <p><strong>Step 2:</strong> Convert the angle to radians using the formula: radians = degrees × (π/180)</p>
+                <p>radians = ${input} × (π/180) = ${(input * (Math.PI / 180)).toFixed(6)} radians</p>
+                <p><strong>Step 3:</strong> Calculate the tangent of the angle in radians</p>
+                <p>tan(${(input * (Math.PI / 180)).toFixed(6)}) = ${result.toFixed(6)}</p>
+                <p><strong>Result:</strong> tan(${input}°) = ${result.toFixed(6)}</p>
+                <p><strong>Explanation:</strong> The tangent function gives the ratio of the opposite side to the adjacent side in a right triangle with the given angle. It can also be calculated as sin(θ)/cos(θ).</p>`;
+            break;
+        case 'sqrt':
+            explanation = `<h3>Square Root Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the number: ${input}</p>
+                <p><strong>Step 2:</strong> Calculate the square root of the number</p>
+                <p>√${input} = ${result.toFixed(6)}</p>
+                <p><strong>Verification:</strong> ${result.toFixed(6)} × ${result.toFixed(6)} = ${(result * result).toFixed(6)} ≈ ${input}</p>
+                <p><strong>Explanation:</strong> The square root of a number is a value that, when multiplied by itself, gives the original number.</p>`;
+            break;
+        case 'log':
+            explanation = `<h3>Logarithm (Base 10) Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the number: ${input}</p>
+                <p><strong>Step 2:</strong> Calculate the logarithm (base 10) of the number</p>
+                <p>log₁₀(${input}) = ${result.toFixed(6)}</p>
+                <p><strong>Verification:</strong> 10^${result.toFixed(6)} = ${Math.pow(10, result).toFixed(6)} ≈ ${input}</p>
+                <p><strong>Explanation:</strong> The logarithm (base 10) of a number is the power to which 10 must be raised to obtain the number.</p>`;
+            break;
+        case 'ln':
+            explanation = `<h3>Natural Logarithm Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the number: ${input}</p>
+                <p><strong>Step 2:</strong> Calculate the natural logarithm (base e) of the number</p>
+                <p>ln(${input}) = ${result.toFixed(6)}</p>
+                <p><strong>Verification:</strong> e^${result.toFixed(6)} = ${Math.exp(result).toFixed(6)} ≈ ${input}</p>
+                <p><strong>Explanation:</strong> The natural logarithm of a number is the power to which the mathematical constant e (≈ 2.71828) must be raised to obtain the number.</p>`;
+            break;
+    }
+    
+    return explanation;
+}
+
+// Explain basic operations
+function explainOperation(calculation) {
+    const { firstOperand, secondOperand, operator, result } = calculation;
+    let explanation = '';
+    
+    switch (operator) {
+        case '+':
+            explanation = `<h3>Addition Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the numbers to add: ${firstOperand} and ${secondOperand}</p>
+                <p><strong>Step 2:</strong> Add the numbers together</p>
+                <p>${firstOperand} + ${secondOperand} = ${result}</p>
+                <p><strong>Explanation:</strong> Addition combines two numbers to find their sum or total.</p>`;
+            break;
+        case '-':
+            explanation = `<h3>Subtraction Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the numbers: ${firstOperand} (minuend) and ${secondOperand} (subtrahend)</p>
+                <p><strong>Step 2:</strong> Subtract the second number from the first</p>
+                <p>${firstOperand} - ${secondOperand} = ${result}</p>
+                <p><strong>Explanation:</strong> Subtraction finds the difference between two numbers or how much one number exceeds another.</p>`;
+            break;
+        case '*':
+            explanation = `<h3>Multiplication Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the numbers to multiply: ${firstOperand} and ${secondOperand}</p>
+                <p><strong>Step 2:</strong> Multiply the numbers together</p>
+                <p>${firstOperand} × ${secondOperand} = ${result}</p>
+                <p><strong>Explanation:</strong> Multiplication is repeated addition. ${firstOperand} × ${secondOperand} means adding ${firstOperand} to itself ${secondOperand} times (or vice versa).</p>`;
+            break;
+        case '/':
+            explanation = `<h3>Division Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the dividend (${firstOperand}) and divisor (${secondOperand})</p>
+                <p><strong>Step 2:</strong> Divide the dividend by the divisor</p>
+                <p>${firstOperand} ÷ ${secondOperand} = ${result}</p>
+                <p><strong>Explanation:</strong> Division determines how many times one number (the divisor) is contained within another number (the dividend).</p>`;
+            break;
+        case '%':
+            explanation = `<h3>Modulo Operation Explanation</h3>
+                <p><strong>Step 1:</strong> Identify the dividend (${firstOperand}) and divisor (${secondOperand})</p>
+                <p><strong>Step 2:</strong> Divide ${firstOperand} by ${secondOperand}: ${firstOperand} ÷ ${secondOperand} = ${Math.floor(firstOperand / secondOperand)} with a remainder of ${result}</p>
+                <p><strong>Step 3:</strong> The result of the modulo operation is the remainder: ${result}</p>
+                <p><strong>Explanation:</strong> The modulo operation finds the remainder after division of one number by another.</p>`;
+            break;
+    }
+    
+    return explanation;
+}
+
+// Initialize the calculator when the page loads
+window.addEventListener('DOMContentLoaded', init);
